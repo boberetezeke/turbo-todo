@@ -16,6 +16,17 @@ module TurboTodo
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.generators do |generate|
+      generate.test_framework :rspec,
+        fixtures: true,
+        helper_specs: false,
+        routing_specs: false,
+        view_specs: false,
+        request_specs: true,
+        controller_specs: false
+      generate.helper false
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

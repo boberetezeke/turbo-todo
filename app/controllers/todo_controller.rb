@@ -19,8 +19,8 @@ class TodoController < ApplicationController
       @todos = ordered_todos
 
       respond_to do |format|
-        format.html { render :index, status: :unprocessable_entity }
-        format.turbo_stream { render :create, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_content }
+        format.turbo_stream { render :create, status: :unprocessable_content }
       end
     end
   end
