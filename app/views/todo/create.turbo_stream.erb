@@ -1,0 +1,4 @@
+<% if @created_todo.present? %>
+  <%= turbo_stream.append "todos", partial: "todo/todo", locals: { todo: @created_todo } %>
+<% end %>
+<%= turbo_stream.replace "new_todo", partial: "todo/form", locals: { todo: @new_todo } %>

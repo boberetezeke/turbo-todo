@@ -1,9 +1,7 @@
 <h1>Todos</h1>
 
-New Todo: <%= text_field(@new_todo, :title) %>
+<%= render "form", todo: @new_todo %>
 
-<ul>
-  <% @todos.each do |todo| %>
-    <li><%= todo.title %></li>
-  <% end %>
+<ul id="todos">
+  <%= render partial: "todo/todo", collection: @todos, as: :todo %>
 </ul>

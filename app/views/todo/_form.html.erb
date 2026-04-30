@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "new_todo" do %>
+  <% if todo.errors.any? %>
+    <div>
+      <p><%= pluralize(todo.errors.count, "error") %> prevented this todo from being saved:</p>
+
+      <ul>
+        <% todo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: todo, url: todo_index_path do |form| %>
+    <div>
+      <%= form.label :title, "New Todo" %>
+      <%= form.text_field :title, placeholder: "What needs to be done?", required: true, autofocus: true %>
+      <%= form.submit "Add todo" %>
+    </div>
+  <% end %>
+<% end %>
+
