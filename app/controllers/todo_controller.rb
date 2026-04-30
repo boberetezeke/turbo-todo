@@ -6,6 +6,8 @@ class TodoController < ApplicationController
 
   def create
     @new_todo = Todo.new(todo_params)
+    highest_order = Todo.order(order: :desc).first&.order || 1
+    @new_todo.order = highest_order + 1
 
     if @new_todo.save
       @created_todo = @new_todo
@@ -28,7 +30,7 @@ class TodoController < ApplicationController
   private
 
   def ordered_todos
-    Todo.order(:id)
+    Todo.order(order: :asc)
   end
 
   def todo_params
