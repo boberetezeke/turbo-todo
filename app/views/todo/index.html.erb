@@ -1,0 +1,9 @@
+<h1>Todos</h1>
+
+New Todo: <%= text_field(@new_todo, :title) %>
+
+<ul>
+  <% @todos.each do |todo| %>
+    <li><%= todo.title %></li>
+  <% end %>
+</ul>
