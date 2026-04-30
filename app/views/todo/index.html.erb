@@ -2,6 +2,4 @@
 
 <%= render "form", todo: @new_todo %>
 
-<ul id="todos" class="todo-list">
-  <%= render partial: "todo/todo", collection: @todos, as: :todo %>
-</ul>
+<%= render "list", todos: @todos %>

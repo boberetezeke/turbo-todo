@@ -6,7 +6,7 @@ class TodoController < ApplicationController
 
   def create
     @new_todo = Todo.new(todo_params)
-    highest_order = Todo.order(order: :desc).first&.order || 1
+    highest_order = Todo.maximum(:order) || 0
     @new_todo.order = highest_order + 1
 
     if @new_todo.save
@@ -27,6 +27,24 @@ class TodoController < ApplicationController
     end
   end
 
+  def update
+    @todo = Todo.find(params[:id])
+    @todo.move_to_order!(todo_order_param)
+    @todos = ordered_todos
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.turbo_stream
+      format.json { head :ok }
+    end
+  rescue ActiveRecord::RecordInvalid
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: "Unable to reorder todo." }
+      format.turbo_stream { head :unprocessable_content }
+      format.json { head :unprocessable_content }
+    end
+  end
+
   private
 
   def ordered_todos
@@ -35,5 +53,9 @@ class TodoController < ApplicationController
 
   def todo_params
     params.require(:todo).permit(:title)
+  end
+
+  def todo_order_param
+    params.require(:todo).permit(:order).fetch(:order).to_i
   end
 end

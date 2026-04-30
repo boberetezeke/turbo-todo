@@ -1,1 +1,9 @@
-<li id="<%= dom_id(todo) %>" class="todo-item"><%= todo.title %></li>
+<li id="<%= dom_id(todo) %>"
+	class="todo-item"
+	draggable="true"
+	data-todo-id="<%= todo.id %>"
+	data-todo-order="<%= todo.order %>"
+	data-update-url="<%= todo_path(todo) %>"
+	data-action="dragstart->todo-sort#dragStart dragend->todo-sort#dragEnd dragover->todo-sort#dragOver drop->todo-sort#drop">
+  <%= todo.title %>
+</li>

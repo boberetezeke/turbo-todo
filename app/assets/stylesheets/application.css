@@ -21,5 +21,29 @@
   border-radius: 0.75rem;
   margin-bottom: 0.75rem;
   padding: 0.75rem 1rem;
+  position: relative;
+  cursor: grab;
+}
+
+.todo-item.dragging {
+  cursor: grabbing;
+  opacity: 0.55;
+}
+
+.todo-item.drop-before::before,
+.todo-item.drop-after::after {
+  border-top: 3px solid #2563eb;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.todo-item.drop-before::before {
+  top: -0.5rem;
+}
+
+.todo-item.drop-after::after {
+  bottom: -0.5rem;
 }
 
