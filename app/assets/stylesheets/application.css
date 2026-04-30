@@ -47,3 +47,44 @@
   bottom: -0.5rem;
 }
 
+.todo-submit-button {
+  background: #93c5fd;
+  border: 1px solid #60a5fa;
+  border-radius: 0.5rem;
+  color: #0f172a;
+  cursor: pointer;
+  flex: 0 0 auto;
+  padding: 0.45rem 0.85rem;
+}
+
+.todo-submit-button:hover {
+  background: #7fb9fc;
+}
+
+.todo-submit-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.todo-title-input {
+  appearance: none;
+  background: #fff;
+  border: 1px solid #60a5fa;
+  border-radius: 0;
+  color: #0f172a;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.45rem 0.6rem;
+}
+
+.todo-form-row {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.todo-title-input:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
