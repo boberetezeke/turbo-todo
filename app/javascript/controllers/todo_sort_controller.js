@@ -9,7 +9,6 @@ export default class extends Controller {
   }
 
   dragStart(event) {
-      console.log("dragStart")
     this.draggedItem = event.currentTarget
     this.draggedItem.classList.add("dragging")
 
@@ -18,7 +17,6 @@ export default class extends Controller {
   }
 
   dragEnd() {
-      console.log("dragEnd")
     if (this.draggedItem) {
       this.draggedItem.classList.remove("dragging")
     }
@@ -30,40 +28,50 @@ export default class extends Controller {
   }
 
   dragOver(event) {
-    event.preventDefault()
+    if (!this.draggedItem) {
+      return
+    }
 
-    const candidate = event.currentTarget
-    if (!this.draggedItem || candidate === this.draggedItem) {
+    event.preventDefault()
+    event.dataTransfer.dropEffect = "move"
+
+    const target = this.findDropTarget(event.clientY)
+    if (!target) {
       this.clearDropMarkers()
       this.dropTarget = null
       this.dropPosition = null
       return
     }
 
-    const rect = candidate.getBoundingClientRect()
-    const isBefore = event.clientY < rect.top + rect.height / 2
-
     this.clearDropMarkers()
-    candidate.classList.add(isBefore ? "drop-before" : "drop-after")
+    target.item.classList.add(target.position === "before" ? "drop-before" : "drop-after")
 
-    this.dropTarget = candidate
-    this.dropPosition = isBefore ? "before" : "after"
+    this.dropTarget = target.item
+    this.dropPosition = target.position
   }
 
   async drop(event) {
-      console.log("at beginning of drop 1")
+    if (!this.draggedItem) {
+      return
+    }
+
     event.preventDefault()
 
-      console.log("at beginning of drop")
-    if (!this.draggedItem || !this.dropTarget) {
+    if (!this.dropTarget) {
+      const fallbackTarget = this.findDropTarget(event.clientY)
+      if (fallbackTarget) {
+        this.dropTarget = fallbackTarget.item
+        this.dropPosition = fallbackTarget.position
+      }
+    }
+
+    if (!this.dropTarget) {
       return
     }
 
     const belowItem = this.dropPosition === "before" ? this.dropTarget : this.nextTodoItem(this.dropTarget)
     const targetOrder = belowItem ? Number.parseInt(belowItem.dataset.todoOrder, 10) : this.maxOrder() + 1
 
-      console.log("belowItem=", belowItem);
-      console.log("targetOrder=", targetOrder);
     if (!Number.isInteger(targetOrder) || targetOrder < 1) {
       return
     }
@@ -81,7 +89,36 @@ export default class extends Controller {
     if (response.ok) {
       Turbo.renderStreamMessage(await response.text())
     }
-   }
+  }
+
+  findDropTarget(clientY) {
+    const todoItems = this.todoItems()
+
+    if (todoItems.length === 0) {
+      return null
+    }
+
+    const firstItem = todoItems[0]
+    const firstRect = firstItem.getBoundingClientRect()
+    if (clientY < firstRect.top + firstRect.height / 2) {
+      return { item: firstItem, position: "before" }
+    }
+
+    for (const item of todoItems) {
+      const rect = item.getBoundingClientRect()
+      if (clientY <= rect.bottom) {
+        const isBefore = clientY < rect.top + rect.height / 2
+        return { item, position: isBefore ? "before" : "after" }
+      }
+    }
+
+    return { item: todoItems[todoItems.length - 1], position: "after" }
+  }
+
+  todoItems() {
+    return Array.from(this.element.querySelectorAll("[data-todo-id]"))
+      .filter((item) => item !== this.draggedItem)
+  }
 
   nextTodoItem(todoItem) {
     let next = todoItem.nextElementSibling

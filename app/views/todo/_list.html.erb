@@ -1,4 +1,7 @@
-<ul id="todos" class="todo-list" data-controller="todo-sort">
+<ul id="todos"
+    class="todo-list"
+    data-controller="todo-sort"
+    data-action="dragover@window->todo-sort#dragOver drop@window->todo-sort#drop">
   <%= render partial: "todo/todo", collection: todos, as: :todo %>
 </ul>
 
