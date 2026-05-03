@@ -76,6 +76,7 @@ export default class extends Controller {
       return
     }
 
+    // update the order of the todo that was dragged
     const response = await fetch(this.draggedItem.dataset.updateUrl, {
       method: "PATCH",
       headers: {
@@ -86,6 +87,7 @@ export default class extends Controller {
       body: JSON.stringify({ todo: { order: targetOrder } })
     })
 
+    // update the whole list with what was returned
     if (response.ok) {
       Turbo.renderStreamMessage(await response.text())
     }
@@ -100,6 +102,7 @@ export default class extends Controller {
 
     const firstItem = todoItems[0]
     const firstRect = firstItem.getBoundingClientRect()
+    // if the drop area is before the first item
     if (clientY < firstRect.top + firstRect.height / 2) {
       return { item: firstItem, position: "before" }
     }
