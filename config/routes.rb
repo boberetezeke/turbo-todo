@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources :todo
 
+  get "test_reset" => "tests#reset"
+
   # Defines the root path route ("/")
   root "todo#index"
 end
