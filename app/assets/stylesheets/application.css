@@ -78,6 +78,7 @@
 }
 
 .todo-form-row {
+  align-items: center;
   display: flex;
   gap: 0.5rem;
   width: 100%;
@@ -86,5 +87,51 @@
 .todo-title-input:focus-visible {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
+}
+
+.todo-select {
+  appearance: none;
+  background: #fff;
+  border: 1px solid #60a5fa;
+  border-radius: 0;
+  color: #0f172a;
+  cursor: pointer;
+  flex: 0 0 auto;
+  padding: 0.45rem 0.6rem;
+}
+
+.todo-select:hover {
+  background: #f0f9ff;
+}
+
+.todo-select:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.todo-item-content {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.todo-severity-badge {
+  border: 2px solid #0f172a;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+}
+
+.todo-difficulty-badge {
+  border: 1px solid #0f172a;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.4rem;
+}
+
+.todo-title-text {
+  flex: 1;
 }
 
