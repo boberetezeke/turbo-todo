@@ -45,6 +45,17 @@ class TodoController < ApplicationController
     end
   end
 
+  def destroy
+    @todo = Todo.find(params[:id])
+    @todo.destroy
+    @todos = ordered_todos
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.turbo_stream
+    end
+  end
+
   private
 
   def ordered_todos

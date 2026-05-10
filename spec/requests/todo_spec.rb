@@ -81,5 +81,31 @@ RSpec.describe "Todos", type: :request do
       expect(third_todo.reload.order).to eq(3)
     end
   end
+
+  describe "DELETE /todo/:id" do
+    it "deletes a todo and redirects for HTML requests" do
+      todo = Todo.create!(title: "Delete me", order: 1)
+
+      expect do
+        delete todo_path(todo)
+      end.to change(Todo, :count).by(-1)
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "deletes a todo and refreshes the list for Turbo Stream requests" do
+      todo = Todo.create!(title: "Delete me", order: 1)
+
+      expect do
+        delete todo_path(todo), as: :turbo_stream
+      end.to change(Todo, :count).by(-1)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.media_type).to eq(Mime[:turbo_stream].to_s)
+      expect(response.body).to include(%(action="replace" target="todos"))
+      expect(response.body).not_to include("Delete me")
+    end
+  end
 end
 
