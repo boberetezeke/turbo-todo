@@ -15,4 +15,16 @@ class Todo < ActiveRecord::Base
       update!(order: normalized_order)
     end
   end
+
+  def complete
+    update(completed_at: Time.now)
+  end
+
+  def completed?
+    completed_at.present?
+  end
+
+  def deleted?
+    deleted_at.present?
+  end
 end

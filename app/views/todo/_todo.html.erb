@@ -12,10 +12,14 @@
 	<% if todo.difficulty.present? %>
 	  <span class="todo-difficulty-badge"><%= todo.difficulty %></span>
 	<% end %>
-	<span class="todo-title-text"><%= todo.title %></span>
+  <% if todo.completed? %>
+    <span class="todo-title-text todo-completed"><%= todo.title %></span>
+  <% else %>
+      <span class="todo-title-text"><%= todo.title %></span>
+  <% end %>
 	<span class="todo-item-actions">
 	  <%= link_to "X", todo_path(todo), data: { turbo_method: :delete }, class: "todo-item-icon" %>
-	  <button type="button" class="todo-item-icon">&#x2610;</button>
+    <%= link_to "&#x2610;".html_safe, complete_todo_path(todo), data: { turbo_method: :patch }, class: "todo-item-icon" %>
 	</span>
   </div>
 </li>

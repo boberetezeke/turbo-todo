@@ -47,7 +47,18 @@ class TodoController < ApplicationController
 
   def destroy
     @todo = Todo.find(params[:id])
-    @todo.destroy
+    @todo.update(deleted_at: Time.now)
+    @todos = ordered_todos
+
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.turbo_stream
+    end
+  end
+
+  def complete
+    @todo = Todo.find(params[:id])
+    @todo.complete
     @todos = ordered_todos
 
     respond_to do |format|
@@ -59,7 +70,7 @@ class TodoController < ApplicationController
   private
 
   def ordered_todos
-    Todo.order(order: :asc)
+    Todo.where(deleted_at: nil).order(order: :asc)
   end
 
   def todo_params

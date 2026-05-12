@@ -86,9 +86,8 @@ RSpec.describe "Todos", type: :request do
     it "deletes a todo and redirects for HTML requests" do
       todo = Todo.create!(title: "Delete me", order: 1)
 
-      expect do
-        delete todo_path(todo)
-      end.to change(Todo, :count).by(-1)
+      delete todo_path(todo)
+      expect(todo.reload.deleted?).to be(true)
 
       expect(response).to have_http_status(:found)
       expect(response).to redirect_to(root_path)
@@ -97,9 +96,32 @@ RSpec.describe "Todos", type: :request do
     it "deletes a todo and refreshes the list for Turbo Stream requests" do
       todo = Todo.create!(title: "Delete me", order: 1)
 
-      expect do
-        delete todo_path(todo), as: :turbo_stream
-      end.to change(Todo, :count).by(-1)
+      delete todo_path(todo), as: :turbo_stream
+      expect(todo.reload.deleted?).to be(true)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.media_type).to eq(Mime[:turbo_stream].to_s)
+      expect(response.body).to include(%(action="replace" target="todos"))
+      expect(response.body).not_to include("Delete me")
+    end
+  end
+
+  describe "Complete /todo/:id" do
+    it "completes a todo and redirects for HTML requests" do
+      todo = Todo.create!(title: "You could complete me", order: 1)
+
+      patch complete_todo_path(todo)
+      expect(todo.reload.completed?).to be(true)
+
+      expect(response).to have_http_status(:found)
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "deletes a todo and refreshes the list for Turbo Stream requests" do
+      todo = Todo.create!(title: "You could complete me", order: 1)
+
+      patch complete_todo_path(todo), as: :turbo_stream
+      expect(todo.reload.completed?).to be(true)
 
       expect(response).to have_http_status(:ok)
       expect(response.media_type).to eq(Mime[:turbo_stream].to_s)

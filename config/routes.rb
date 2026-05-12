@@ -9,7 +9,11 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  resources :todo
+  resources :todo do
+    member do
+      patch "complete" => "todo#complete"
+    end
+  end
 
   get "test_reset" => "tests#reset"
 
