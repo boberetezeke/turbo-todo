@@ -117,7 +117,7 @@ RSpec.describe "Todos", type: :request do
       expect(response).to redirect_to(root_path)
     end
 
-    it "deletes a todo and refreshes the list for Turbo Stream requests" do
+    it "completes a todo and refreshes the list for Turbo Stream requests" do
       todo = Todo.create!(title: "You could complete me", order: 1)
 
       patch complete_todo_path(todo), as: :turbo_stream
@@ -126,7 +126,7 @@ RSpec.describe "Todos", type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.media_type).to eq(Mime[:turbo_stream].to_s)
       expect(response.body).to include(%(action="replace" target="todos"))
-      expect(response.body).not_to include("Delete me")
+      expect(response.body).to include("&#x2611;")
     end
   end
 end

@@ -150,11 +150,16 @@
   color: #334155;
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.8rem;
+  font-size: 1.25rem;
   justify-content: center;
   line-height: 1;
-  padding: 0.25rem 0.4rem;
+  padding: 0.15rem 0.35rem;
   text-decoration: none;
+}
+
+.todo-item-icon-completed {
+  border-color: #16a34a;
+  color: #166534;
 }
 
 .todo-completed {
