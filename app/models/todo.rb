@@ -20,6 +20,10 @@ class Todo < ActiveRecord::Base
     update(completed_at: Time.now)
   end
 
+  def uncomplete
+    update(completed_at: nil)
+  end
+
   def completed?
     completed_at.present?
   end

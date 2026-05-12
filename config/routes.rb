@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :todo do
     member do
       patch "complete" => "todo#complete"
+      patch "uncomplete" => "todo#uncomplete"
     end
   end
 

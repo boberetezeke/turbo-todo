@@ -20,7 +20,7 @@
 	<span class="todo-item-actions">
 	  <%= link_to "X", todo_path(todo), data: { turbo_method: :delete }, class: "todo-item-icon" %>
 	  <%= link_to(todo.completed? ? "&#x2611;".html_safe : "&#x2610;".html_safe,
-	              complete_todo_path(todo),
+                todo.completed? ? uncomplete_todo_path(todo) : complete_todo_path(todo),
 	              data: { turbo_method: :patch },
 	              class: "todo-item-icon #{'todo-item-icon-completed' if todo.completed?}") %>
 	</span>
