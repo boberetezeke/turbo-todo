@@ -31,4 +31,12 @@ class Todo < ActiveRecord::Base
   def deleted?
     deleted_at.present?
   end
+
+  def desire_to_work
+    self.class.desire_to_work(difficulty, severity)
+  end
+
+  def self.desire_to_work(difficulty, severity)
+    ((4 - (difficulty - severity)) / 2.0) + 1
+  end
 end

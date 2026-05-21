@@ -1,28 +1,28 @@
-<li id="<%= dom_id(todo) %>"
-	class="todo-item"
+<li id="<%= dom_id(todo) %> "
+	class="<%= 'todo-item ' + todo_desire_to_work_class(todo) %>"
 	draggable="true"
 	data-todo-id="<%= todo.id %>"
 	data-todo-order="<%= todo.order %>"
 	data-update-url="<%= todo_path(todo) %>"
 	data-action="dragstart->todo-sort#dragStart dragend->todo-sort#dragEnd">
   <div class="todo-item-content">
-	<% if todo.severity.present? %>
-	  <span class="todo-severity-badge"><%= todo.severity %></span>
-	<% end %>
-	<% if todo.difficulty.present? %>
-	  <span class="todo-difficulty-badge"><%= todo.difficulty %></span>
-	<% end %>
-  <% if todo.completed? %>
-    <span class="todo-title-text todo-completed"><%= todo.title %></span>
-  <% else %>
-      <span class="todo-title-text"><%= todo.title %></span>
-  <% end %>
-	<span class="todo-item-actions">
-	  <%= link_to "X", todo_path(todo), data: { turbo_method: :delete }, class: "todo-item-icon" %>
-	  <%= link_to(todo.completed? ? "&#x2611;".html_safe : "&#x2610;".html_safe,
-                todo.completed? ? uncomplete_todo_path(todo) : complete_todo_path(todo),
-	              data: { turbo_method: :patch },
-	              class: "todo-item-icon #{'todo-item-icon-completed' if todo.completed?}") %>
-	</span>
+    <% if todo.severity.present? %>
+      <span class="todo-severity-badge"><%= abbr(todo.severity) %></span>
+    <% end %>
+    <% if todo.difficulty.present? %>
+      <span class="todo-difficulty-badge"><%= abbr(todo.difficulty) %></span>
+    <% end %>
+    <% if todo.completed? %>
+      <span class="todo-title-text todo-completed"><%= todo.title %></span>
+    <% else %>
+        <span class="todo-title-text"><%= todo.title %></span>
+    <% end %>
+    <span class="todo-item-actions">
+      <%= link_to "X", todo_path(todo), data: { turbo_method: :delete }, class: "todo-item-icon" %>
+      <%= link_to(todo.completed? ? "&#x2611;".html_safe : "&#x2610;".html_safe,
+                  todo.completed? ? uncomplete_todo_path(todo) : complete_todo_path(todo),
+                  data: { turbo_method: :patch },
+                  class: "todo-item-icon #{'todo-item-icon-completed' if todo.completed?}") %>
+    </span>
   </div>
 </li>

@@ -46,9 +46,9 @@ RSpec.describe "Todos", type: :request do
 
   describe "PATCH /todo/:id" do
     it "renumbers todos at or above the target order and updates the dragged todo" do
-      first_todo = Todo.create!(title: "First", order: 1)
-      second_todo = Todo.create!(title: "Second", order: 2)
-      third_todo = Todo.create!(title: "Third", order: 3)
+      first_todo = Todo.create!(title: "First", order: 1, difficulty: 3, severity: 3)
+      second_todo = Todo.create!(title: "Second", order: 2, difficulty: 3, severity: 3)
+      third_todo = Todo.create!(title: "Third", order: 3, difficulty: 3, severity: 3)
 
       patch todo_path(third_todo),
         params: { todo: { order: first_todo.order } },
@@ -64,9 +64,9 @@ RSpec.describe "Todos", type: :request do
     end
 
     it "renumbers no todos when dragged to the end" do
-      first_todo = Todo.create!(title: "First", order: 1)
-      second_todo = Todo.create!(title: "Second", order: 2)
-      third_todo = Todo.create!(title: "Third", order: 3)
+      first_todo = Todo.create!(title: "First", order: 1, difficulty: 3, severity: 3)
+      second_todo = Todo.create!(title: "Second", order: 2, difficulty: 3, severity: 3)
+      third_todo = Todo.create!(title: "Third", order: 3, difficulty: 3, severity: 3)
 
       patch todo_path(first_todo),
             params: { todo: { order: 4 } },
@@ -118,7 +118,7 @@ RSpec.describe "Todos", type: :request do
     end
 
     it "completes a todo and refreshes the list for Turbo Stream requests" do
-      todo = Todo.create!(title: "You could complete me", order: 1)
+      todo = Todo.create!(title: "You could complete me", order: 1, difficulty: 3, severity: 3)
 
       patch complete_todo_path(todo), as: :turbo_stream
       expect(todo.reload.completed?).to be(true)
@@ -132,7 +132,7 @@ RSpec.describe "Todos", type: :request do
 
   describe "Uncomplete /todo/:id" do
     it "uncompletes a todo and redirects for HTML requests" do
-      todo = Todo.create!(title: "You could complete me", order: 1)
+      todo = Todo.create!(title: "You could complete me", order: 1, difficulty: 3, severity: 3)
 
       patch uncomplete_todo_path(todo)
       expect(todo.reload.completed?).to be(false)
@@ -142,8 +142,7 @@ RSpec.describe "Todos", type: :request do
     end
 
     it "completes a todo and refreshes the list for Turbo Stream requests" do
-      todo = Todo.create!(title: "You could complete me", order: 1)
-
+      todo = Todo.create!(title: "You could complete me", order: 1, difficulty: 3, severity: 3)
       patch uncomplete_todo_path(todo), as: :turbo_stream
       expect(todo.reload.completed?).to be(false)
 

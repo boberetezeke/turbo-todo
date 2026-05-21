@@ -166,3 +166,72 @@
     text-decoration: line-through;
 }
 
+.todo-desire-to-work--normal--1-0 {
+    color: #fff;
+    background-color: #a19999; // gray 40%
+}
+
+.todo-desire-to-work--normal--1-5 {
+    color: #fff;
+    background-color: #b3b3b3; // gray 30%
+}
+
+.todo-desire-to-work--normal--2-0 {
+    color: black;
+    background-color: #e6e6e6; // gray 10%
+}
+
+.todo-desire-to-work--normal--2-5 {
+    color: black;
+    background-color: #f2f2f2; // gray 5%
+}
+
+.todo-desire-to-work--normal--3-0 {
+    color: black;
+    background-color: #fff;
+}
+
+.todo-desire-to-work--normal--3-5 {
+    color: black;
+    background-color: #d5ffd5;  // light green
+}
+
+.todo-desire-to-work--normal--4-0 {
+    color: black;
+    background-color: #aaffaa;  // med-light green
+}
+
+.todo-desire-to-work--normal--4-5 {
+    color: black;
+    background-color: #80ff80;  // med green
+}
+
+.todo-desire-to-work--normal--5-0 {
+    color: black;
+    background-color: #55ff55;  // green
+}
+
+.todo-desire-to-work--deadline--1-0 {
+    color: black;
+    background-color: #ffffc0;
+}
+
+.todo-desire-to-work--deadline--2-0 {
+    color: black;
+    background-color: #ff8000;
+}
+
+.todo-desire-to-work--deadline--3-0 {
+    color: black;
+    background-color: #ffff00;
+}
+
+.todo-desire-to-work--deadline--4-0 {
+    color: #fff;
+    background-color: #ffc000;
+}
+
+.todo-desire-to-work--deadline--5-0 {
+    color: #fff;
+    background-color: #ff0000;
+}

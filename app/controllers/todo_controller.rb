@@ -1,17 +1,19 @@
 class TodoController < ApplicationController
   def index
     @todos = ordered_todos
-    @new_todo = Todo.new
+    @new_todo = Todo.new(difficulty: 3, severity: 3)
   end
 
   def create
     @new_todo = Todo.new(todo_params)
     highest_order = Todo.maximum(:order) || 0
     @new_todo.order = highest_order + 1
+    @new_todo.severity ||= 3
+    @new_todo.difficulty ||= 3
 
     if @new_todo.save
       @created_todo = @new_todo
-      @new_todo = Todo.new
+      @new_todo = Todo.new(difficulty: 3, severity: 3)
 
       respond_to do |format|
         format.html { redirect_to root_path }
