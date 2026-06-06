@@ -87,7 +87,7 @@ class TodoController < ApplicationController
   end
 
   def todo_params
-    params.require(:todo).permit(:title, :difficulty, :severity)
+    params.require(:todo).permit(:title, :difficulty, :severity, :deadline)
   end
 
   def todo_order_param

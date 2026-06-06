@@ -4,6 +4,11 @@ module ApplicationHelper
     "todo-desire-to-work--normal--#{value}"
   end
 
+  def todo_deadline_danger_class(todo)
+    value = todo.deadline_danger.to_s.gsub(/\./, "-")
+    "todo-deadline-danger--#{todo.deadline_danger}"
+  end
+
   def abbr(value)
     {
       1 => 'L',

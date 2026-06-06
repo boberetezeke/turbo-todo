@@ -36,7 +36,20 @@ class Todo < ActiveRecord::Base
     self.class.desire_to_work(difficulty, severity)
   end
 
+  def deadline_danger
+    return 0 unless deadline
+
+    self.class.deadline_danger(deadline_type, deadline, difficulty)
+  end
+
   def self.desire_to_work(difficulty, severity)
     ((4 - (difficulty - severity)) / 2.0) + 1
+  end
+
+  def self.deadline_danger(deadline_type, deadline, difficulty)
+    val = (((deadline.to_date - Time.now.to_date) - 1) / difficulty).floor + 1
+    val = 1 if val < 1
+    val = 4 if val > 3
+    4 - val
   end
 end
