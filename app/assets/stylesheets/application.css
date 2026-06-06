@@ -17,12 +17,27 @@
 
 .todo-item {
   background: #f8fafc;
-  border: 1px solid #e2e8f0;
   border-radius: 0.75rem;
   margin-bottom: 0.75rem;
   padding: 0.75rem 1rem;
   position: relative;
   cursor: grab;
+}
+
+.todo-deadline-danger--0 {
+  border: 5px solid #e2e8f0;
+}
+
+.todo-deadline-danger--1 {
+    border: 5px solid yellow;
+}
+
+.todo-deadline-danger--2 {
+    border: 5px solid orange;
+}
+
+.todo-deadline-danger--3 {
+    border: 5px solid red;
 }
 
 .todo-item.dragging {
@@ -234,4 +249,13 @@
 .todo-desire-to-work--deadline--5-0 {
     color: #fff;
     background-color: #ff0000;
+}
+
+svg {
+    fill: white;
+    stroke: #4a4a4a;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    width: 24px;
+    height: 24px;
 }

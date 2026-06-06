@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_10_032600) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_24_025205) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "todos", force: :cascade do |t|
     t.datetime "completed_at"
+    t.datetime "deadline"
+    t.string "deadline_type", default: "time", null: false
     t.datetime "deleted_at"
     t.string "description"
     t.integer "difficulty"

@@ -14,6 +14,12 @@
   <%= form_with model: todo, url: todo_index_path do |form| %>
     <div class="todo-form-row">
       <%= form.text_field :title, placeholder: "What needs to be done?", required: true, autofocus: true, class: "todo-title-input" %>
+      <div data-controller="datepicker">
+        <input data-datepicker-target="input" type="text" name="todo[deadline]" value="" class="todo-title-input"/>
+        <button data-datepicker-target="toggle">
+          <svg><use href="#calendar-icon"/></svg>
+        </button>
+      </div>
       <%= form.label :severity %>
       <%= form.select(:severity, { "Low" => 1, "Medium Low" => 2, "Medium" => 3, "Medium High" => 4, "High" => 5 }, {}, class: "todo-select") %>
       <%= form.label :difficulty %>
